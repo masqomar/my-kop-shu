@@ -4,10 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Simpanan extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName('Transaksi Simpanan')
+            ->logOnly(['user.first_name', 'jenis_id', 'jumlah', 'tgl_transaksi', 'keterangan', 'kas_id']);
+        // ->setDescriptionForEvent(fn (string $eventName) ,=> "This model has been {$eventName}");
+    }
 
     protected $table = 'tbl_trans_sp';
      /**
@@ -15,14 +25,23 @@ class Simpanan extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['tgl_transaksi', 'anggota_id', 'jenis_id', 'jumlah', 'keterangan', 'akun'];
+    protected $fillable = [
+        'tgl_transaksi', 
+        'anggota_id', 
+        'jenis_id', 
+        'jumlah', 
+        'keterangan', 
+        'akun',
+        'kas_id',
+        'dk'
+    ];
 
     /**
      * The attributes that should be cast.
      *
      * @var string[]
      */
-    protected $casts = ['tgl_transaksi' => 'datetime:d/m/Y H:i','jumlah' => 'integer','description' => 'string','created_at' => 'datetime:d/m/Y H:i', 'updated_at' => 'datetime:d/m/Y H:i'];
+    protected $casts = ['tgl_transaksi' => 'datetime:d/m/Y H:i','jumlah' => 'integer'];
 
     public function user()
     {
@@ -32,4 +51,5 @@ class Simpanan extends Model
     {
         return $this->belongsTo(\App\Models\JenisAkun::class, 'jenis_id', 'id');
     }
+
 }

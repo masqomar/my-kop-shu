@@ -15,6 +15,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset ('assets/img/favicon.png') }}" sizes="32x32">
+    <link rel="manifest" href="__manifest.json">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -29,9 +30,10 @@
 <!-- /.login-box -->
 
 @vite('resources/js/app.js')
-<!-- Bootstrap 4 -->
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<!-- Jquery -->
+<script src="{{ asset ('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
+@yield('scripts')
 </body>
 </html>

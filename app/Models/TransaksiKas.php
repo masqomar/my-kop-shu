@@ -9,9 +9,8 @@ class TransaksiKas extends Model
 {
   use HasFactory;
 
-  public $timestamps = false;
-
   protected $table = 'tbl_trans_kas';
+
   /**
    * The attributes that are mass assignable.
    *
@@ -25,9 +24,7 @@ class TransaksiKas extends Model
     'dari_kas_id',
     'untuk_kas_id',
     'jns_trans',
-    'dk',
-    'update_data',
-    'user_name'
+    'dk'
   ];
 
   /**

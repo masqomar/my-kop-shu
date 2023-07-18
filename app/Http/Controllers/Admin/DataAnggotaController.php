@@ -3,12 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\anggotaRequest;
+use App\Models\Anggota;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class DataAnggotaController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('permission:data anggota view')->only('index', 'show');
+    //     $this->middleware('permission:data anggota create')->only('create', 'store');
+    //     $this->middleware('permission:data anggota edit')->only('edit', 'update');
+    //     $this->middleware('permission:data anggota delete')->only('destroy');
+    // }
+    
     protected $avatarPath = '/uploads/images/avatars/';
     /**
      * Display a listing of the resource.
@@ -48,7 +59,7 @@ class DataAnggotaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.data-anggota.create');
     }
 
     /**
@@ -57,9 +68,37 @@ class DataAnggotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(anggotaRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $attr = $request->validated() + (['country_code' => '62', 'type' => 'user']);
+            $attr['password'] = bcrypt($request->password);
+
+            $anggotaId = User::insert($attr);
+
+            Anggota::create([
+                'nama'  => $request->first_name,
+                'identitas' => $request->member_id,
+                'jk' => 'L',
+                'tmp_lahir' => 'Kediri',
+                'tgl_lahir' => now(),
+                'status' => 'Single',
+                'agama' => 'Islam',
+                'departement' => 'LC',
+                'pekerjaan' => 'Karyawan',
+                'alamat' => 'Kediri',
+                'kota' => 'Kediri',
+                'notelp' => $request->mobile,
+                'tgl_daftar' => now(),
+                'jabatan_id' => 2,
+                'aktif' => 'Y',
+                'file_pic' => ''
+            ]);
+        });
+
+        return redirect()
+            ->route('admin.data-anggota.index')
+            ->with('success', __('Anggota baru berhasil disimpan'));
     }
 
     /**

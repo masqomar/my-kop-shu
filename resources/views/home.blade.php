@@ -224,7 +224,12 @@
                                 </div>
                                 @endif
                                 <div class="in">
-                                    <div>{{ $history->meta['description'] ?? 'Tidak Ada Keterangan' }}</div>
+                                    @php
+                                    $meta = json_decode($history['meta'], true);
+                                    @endphp
+                                    @if ($meta)
+                                    <div>{{ $meta['description'] ?? 'Tidak Ada Keterangan'}}</div>
+                                    @endif
                                     @if ($history->type == 'deposit')
                                     <span class="badge badge-primary">@rupiah ($history->amount)</span>
                                     @else

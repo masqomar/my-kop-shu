@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SetorSimpananRequest;
+use App\Http\Requests\StoreSetorSimpananRequest;
+use App\Models\JenisKas;
+use App\Models\JenisSimpanan;
 use App\Models\Simpanan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class SetoranSimpananController extends Controller
@@ -17,7 +24,7 @@ class SetoranSimpananController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiSimpanan = Simpanan::with('user');
+            $transaksiSimpanan = Simpanan::with('user')->where('akun', 'Setoran');
 
             return DataTables::of($transaksiSimpanan)
                 ->addColumn('kode_transaksi', function ($row) {
@@ -45,7 +52,11 @@ class SetoranSimpananController extends Controller
      */
     public function create()
     {
-        return view('admin.setor-simpanan.create');
+        $users = User::where('status', 1)->get();
+        $jenisSimpanan = JenisSimpanan::where('tampil', 'Y')->get();
+        $jenisKas = JenisKas::where('tmpl_simpan', 'Y')->where('aktif', 'Y')->get();
+
+        return view('admin.setor-simpanan.create', compact('users', 'jenisSimpanan', 'jenisKas'));
     }
 
     /**
@@ -54,9 +65,32 @@ class SetoranSimpananController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSetorSimpananRequest $request)
     {
-        //
+
+        // dd($request->all());
+        $request->validated();
+        DB::transaction(function () use ($request) {
+            $id = $request->user_id;
+            for ($i = 0; $i < count($id); $i++) {
+                Simpanan::create([
+                    'anggota_id' => $id[$i],
+                    'tgl_transaksi'    => $request->tgl_transaksi,
+                    'jumlah'    => $request->jumlah_simpanan,
+                    'keterangan'    => $request->keterangan,
+                    'kas_id'    => $request->untuk_kas,
+                    'jenis_id'    => $request->jenis_simpanan,
+                    'akun' => 'Setoran',
+                    'dk' => 'D',
+                ]);
+
+                // activity()->log('Topup saldo jimpay ' . $request->note . ' ke ' . $user->member_id . ' ' . $user->first_name);
+            }
+        });
+
+        return redirect()
+            ->route('admin.setor-simpanan.index')
+            ->with('success', __('Setor simpanan berhasil disimpan'));
     }
 
     /**

@@ -22,7 +22,8 @@ class JenisAkun extends Model
     'laba_rugi', 
     'pemasukan', 
     'pengeluaran', 
-    'aktif'];
+    'aktif'
+];
 
    /**
     * The attributes that should be cast.

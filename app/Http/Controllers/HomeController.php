@@ -49,6 +49,7 @@ class HomeController extends Controller
                 ->sum('jumlah');
         $simSukarela = $totalSimpananSukarela - $totalTransaksiTarik;
 
+        // return json_encode($histories);
         return view('home', compact('saldo', 'histories', 'totalHistoryIn', 'totalHistoryOut', 'simWajib', 'simSukarela'));
     }
 

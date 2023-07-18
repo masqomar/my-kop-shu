@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        if (Auth::user()->type == 'user' || Auth::user()->type == 'store')
+        return Redirect::to('/home');
+        else {
+            return Redirect::to('/admin/home');
+        }
+    } else {
+        // User is not logged in, handle the appropriate response
+        // For example, you can redirect them to the login page
+        return Redirect::to('/login');
+    }
 });
 
 Auth::routes();
@@ -62,75 +76,19 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
      // Profil
      Route::get('profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('user.profil.index');
-     Route::get('ganti-password', [App\Http\Controllers\User\ProfilController::class, 'changePassword'])->name('user.profil.password');
      Route::get('edit-profil', [App\Http\Controllers\User\ProfilController::class, 'editProfil'])->name('user.profil.detail');
 
 });
   
-/*---- All Admin Routes List----*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        
-    // Dashboard Admin
-    Route::get('home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
-    
-    // Pemasukan Kas
-    Route::get('pemasukan-kas', [App\Http\Controllers\Admin\PemasukanKasController::class, 'index'])->name('admin.pemasukan-kas.index');
-    Route::get('pemasukan-kas/create', [App\Http\Controllers\Admin\PemasukanKasController::class, 'create'])->name('admin.pemasukan-kas.create');
-    Route::post('pemasukan-kas/store', [App\Http\Controllers\Admin\PemasukanKasController::class, 'store'])->name('admin.pemasukan-kas.store');
-    
-    // Pengeluaran Kas
-    Route::get('pengeluaran-kas', [App\Http\Controllers\Admin\PengeluaranKasController::class, 'index'])->name('admin.pengeluaran-kas.index');
-    Route::get('pengeluaran-kas/create', [App\Http\Controllers\Admin\PengeluaranKasController::class, 'create'])->name('admin.pengeluaran-kas.create');
-    Route::post('pengeluaran-kas/store', [App\Http\Controllers\Admin\PengeluaranKasController::class, 'store'])->name('admin.pengeluaran-kas.store');
-    
-    // Transfer Kas
-    Route::get('transfer-kas', [App\Http\Controllers\Admin\TransferKasController::class, 'index'])->name('admin.transfer-kas.index');
-    Route::get('transfer-kas/create', [App\Http\Controllers\Admin\TransferKasController::class, 'create'])->name('admin.transfer-kas.create');
-    Route::post('transfer-kas/store', [App\Http\Controllers\Admin\TransferKasController::class, 'store'])->name('admin.transfer-kas.store');
 
-    // Setor Simpanan
-    Route::get('setor-simpanan', [App\Http\Controllers\Admin\SetoranSimpananController::class, 'index'])->name('admin.setor-simpanan.index');
-    Route::get('setor-simpanan/create', [App\Http\Controllers\Admin\SetoranSimpananController::class, 'create'])->name('admin.setor-simpanan.create');
 
-    // Voucher Bulanan
-    Route::get('voucher-bulanan', [App\Http\Controllers\Admin\VoucherBulananController::class, 'index'])->name('admin.voucher-bulanan.index');
-    Route::get('voucher-bulanan/create', [App\Http\Controllers\Admin\VoucherBulananController::class, 'create'])->name('admin.voucher-bulanan.create');
-    Route::post('voucher-bulanan/store', [App\Http\Controllers\Admin\VoucherBulananController::class, 'store'])->name('admin.voucher-bulanan.store');
-
-    // Topup JIMPay
-    Route::get('topup', [App\Http\Controllers\Admin\TopupController::class, 'index'])->name('admin.topup.index');
-    Route::get('topup/create', [App\Http\Controllers\Admin\TopupController::class, 'create'])->name('admin.topup.create');
-    Route::post('topup/store', [App\Http\Controllers\Admin\TopupController::class, 'store'])->name('admin.topup.store');
-
-    
-    // Master Data
-    Route::get('jenis-akun', [App\Http\Controllers\Admin\JenisAkunController::class, 'index'])->name('admin.jenis-akun.index');
-    Route::get('jenis-simpanan', [App\Http\Controllers\Admin\JenisSimpananController::class, 'index'])->name('admin.jenis-simpanan.index');
-    Route::get('lama-angsuran', [App\Http\Controllers\Admin\LamaAngsuranController::class, 'index'])->name('admin.lama-angsuran.index');
-    Route::get('data-anggota', [App\Http\Controllers\Admin\DataAnggotaController::class, 'index'])->name('admin.data-anggota.index');
-    
-    // Laporan Laporan
-    Route::get('laporan-neraca-saldo', [App\Http\Controllers\Admin\LaporanNeracaSaldoController::class, 'index'])->name('admin.laporan-neraca-saldo.index');
-    Route::get('laporan-neraca-saldo/filter', [App\Http\Controllers\Admin\LaporanNeracaSaldoController::class, 'filter'])->name('admin.laporan-neraca-saldo.filter');
-    Route::get('laporan-laba-rugi', [App\Http\Controllers\Admin\LaporanLabaRugiController::class, 'index'])->name('admin.laporan-laba-rugi.index');
-    Route::get('laporan-shu', [App\Http\Controllers\Admin\LaporanShuController::class, 'index'])->name('admin.laporan-shu.index');
-
-    });
-});
-  
-/*---- All Admin Routes List----*/
-Route::middleware(['auth', 'user-access:mitra'])->group(function () {
-  
-    Route::get('/mitra/home', [App\Http\Controllers\HomeController::class, 'mitraHome'])->name('mitra.home');
-});
 
 
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
 
-    Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
+require __DIR__.'/admin_routes.php';
+require __DIR__.'/mitra_routes.php';

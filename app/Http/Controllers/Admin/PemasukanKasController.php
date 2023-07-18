@@ -66,9 +66,7 @@ class PemasukanKasController extends Controller
             'akun' => 'Pemasukan',
             'untuk_kas_id' => $request->untuk_kas,
             'jns_trans' => $request->akun_id,
-            'dk' => 'D',
-            'update_data' => now(),
-            'user_name' => Auth::user()->first_name
+            'dk' => 'D'
         ]));
 
         return redirect()

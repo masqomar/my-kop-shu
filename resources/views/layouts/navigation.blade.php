@@ -1,11 +1,5 @@
 <!-- Sidebar -->
 <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-            <a href="{{ route('profile.show') }}" class="d-block">{{ Auth::user()->first_name }}</a>
-        </div>
-    </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -22,7 +16,7 @@
             <li class="nav-header">MENU KOPERASI</li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-piggy-bank nav-icon"></i>
+                    <i class="nav-icon fas fa-piggy-bank nav-icon"></i>
                     <p>
                         Transaksi Kas
                         <i class="fas fa-angle-left right"></i>
@@ -31,19 +25,19 @@
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
                         <a href="{{route('admin.pemasukan-kas.index')}}" class="nav-link">
-                        <i class="fas fa-download nav-icon"></i>
+                            <i class="fas fa-download nav-icon"></i>
                             <p>Pemasukan</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.pengeluaran-kas.index')}}" class="nav-link">
-                        <i class="fas fa-money-check-alt nav-icon"></i>
+                            <i class="fas fa-money-check-alt nav-icon"></i>
                             <p>Pengeluaran</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.transfer-kas.index')}}" class="nav-link">
-                        <i class="fas fa-random nav-icon"></i>
+                            <i class="fas fa-random nav-icon"></i>
                             <p>Transfer</p>
                         </a>
                     </li>
@@ -60,13 +54,13 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.setor-simpanan.index')}}" class="nav-link">
                             <i class="fa-solid fa-download nav-icon"></i>
                             <p>Setoran</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.penarikan-simpanan.index')}}" class="nav-link">
                             <i class="fa-solid fa-share nav-icon"></i>
                             <p>Penarikan</p>
                         </a>
@@ -76,7 +70,7 @@
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-handshake nav-icon"></i>
+                    <i class="nav-icon fas fa-handshake nav-icon"></i>
                     <p>
                         Pinjaman
                         <i class="fas fa-angle-left right"></i>
@@ -84,31 +78,31 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.data-pengajuan.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Data Pengajuan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.pinjaman.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Data Pinjaman</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.angsuran.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Bayar Angsuran</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.lunas.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Pinjaman Lunas</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.data-angsuran.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Data Angsuran</p>
                         </a>
@@ -126,18 +120,12 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Anggota</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.laporan-kas-anggota.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Kas Anggota</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Jatuh Tempo</p>
@@ -160,14 +148,14 @@
                             <i class="far fa-circle nav-icon"></i>
                             <p>Buku Besar</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{route('admin.laporan-neraca-saldo.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Neraca Saldo</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Kas Simpanan</p>
@@ -184,7 +172,7 @@
                             <i class="far fa-circle nav-icon"></i>
                             <p>Saldo Kas</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="{{route('admin.laporan-laba-rugi.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
@@ -195,6 +183,12 @@
                         <a href="{{route('admin.laporan-shu.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>SHU</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.laporan-pembagian-shu.index')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Pembagian SHU</p>
                         </a>
                     </li>
                 </ul>
@@ -234,7 +228,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.data-barang.index')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Data Barang</p>
                         </a>
@@ -248,16 +242,16 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tools nav-icon"></i>
+                    <i class="nav-icon fas fa-tools nav-icon"></i>
                     <p>
                         Setting
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview" style="display: none;">
-                    <li class="nav-item">
+                <ul class="nav nav-treeview" style="display: none;"> -->
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Identitas Koperasi</p>
@@ -268,14 +262,14 @@
                             <i class="far fa-circle nav-icon"></i>
                             <p>Suku Bunga</p>
                         </a>
-                    </li>
-                </ul>
-            </li>
+                    </li> -->
+                <!-- </ul>
+            </li> -->
 
             <li class="nav-header">MENU JIMMART</li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="nva-icon fas fa-search-dollar nav-icon"></i>
+                    <i class="nva-icon fas fa-search-dollar nav-icon"></i>
                     <p>
                         Topup JIMPay
                         <i class="fas fa-angle-left right"></i>
@@ -294,12 +288,12 @@
                             <p>Cash / Transfer</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Ambil Simp Sukarela</p>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li class="nav-item">
@@ -329,12 +323,31 @@
 
             <li class="nav-header">MENU LAIN - LAIN</li>
             <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-store nav-icon"></i>
                     <p>
-                        {{ __('Users') }}
+                        Data Log
+                        <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview" style="display: none;">
+                    <li class="nav-item">
+                        <a href="{{ route('activities.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                {{ __('Log Activity') }}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('log-viewer') }}" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                {{ __('Log Viewer') }}
+                            </p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item">

@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', trans('Edit Profil'))
+@section('title', trans('Update Profil'))
 
 @section('content')
 
@@ -12,7 +12,7 @@
             <ion-icon name="chevron-back-outline"></ion-icon>
         </a>
     </div>
-    <div class="pageTitle">Edit Profil</div>
+    <div class="pageTitle">Update Profil</div>
     <div class="right"></div>
 </div>
 <!-- * App Header -->
@@ -22,99 +22,125 @@
 <br>
 <div class="row">
     <div class="col-md-12">
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible show fade">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            Silahkan periksa kembali inputanmu
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('user-profile-information.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
-                    <div class="form-group">
-                        <label for="first_name">{{ __('Nama Keren / Panggilan') }}</label>
-                        <input type="text" name="first_name" class="form-control  @error('first_name', 'updateProfileInformation') is-invalid @enderror" id="first_name" placeholder="{{ __('Nama Keren / Panggilan') }}" value="{{ old('first_name') ?? auth()->user()->first_name }}" required>
-                        @error('first_name', 'updateProfileInformation')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                        @enderror
-                    </div>
+                    <div class="card-body">
+                        <div class="mb-1">
+                            <label>Nama Depan:</label>
+                            <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" placeholder="{{ __('Nama Keren') }}" value="{{ old('first_name', auth()->user()->first_name) }}" required>
 
-                    <div class="form-group">
-                        <label for="last_name">{{ __('Nama Lengkap') }}</label>
-                        <input type="text" name="last_name" class="form-control  @error('last_name', 'updateProfileInformation') is-invalid @enderror" id="last_name" placeholder="{{ __('Nama Lengkap') }}" value="{{ old('last_name') ?? auth()->user()->last_name }}" required>
-                        @error('last_name', 'updateProfileInformation')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">{{ __('E-mail Address') }}</label>
-                        <input type="email" name="email" class="form-control @error('email', 'updateProfileInformation') is-invalid @enderror" id="email" placeholder="{{ __('E-mail Address') }}" value="{{ old('email') ?? auth()->user()->email }}" required>
-
-                        @error('email', 'updateProfileInformation')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mobile">{{ __('No Telepon') }} <sup>tanpa angka '0' contoh: 85790702476</sup> </label>
-                        <input type="text" name="mobile" class="form-control  @error('mobile', 'updateProfileInformation') is-invalid @enderror" id="mobile" placeholder="{{ __('No Telepon') }}" value="{{ old('mobile') ?? auth()->user()->mobile }}" required>
-                        @error('mobile', 'updateProfileInformation')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender" class="form-control" required>
-                            <option value="" selected disabled>-- {{ __('Jenis Kelamin') }} --</option>
-
-                            <option value="1" {{ auth()->user()->gender ? 'selected' : (old('gender') ? 'selected' : '') }}>
-                                {{ __('Laki - laki') }}
-                            </option>
-                            <option value="0" {{ auth()->user()->gender ? 'selected' : (old('gender') ? 'selected' : '') }}>
-                                {{ __('Perempuan') }}
-                            </option>
-                        </select>
-                        @error('gender', 'updateProfileInformation')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-1">
-                            <div class="avatar avatar-xl mb-3">
-                                @if (auth()->user()->avatar == null)
-                                <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(trim(auth()->user()->email))) }}&s=500" alt="Avatar">
-                                @else
-                                <img src="{{ asset('uploads/images/avatars/' . auth()->user()->avatar) }}" alt="Avatar" style="border-radius: 30px; width: 70px; height: 70px;">
-                                @endif
-                            </div>
+                            @error('first_name')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </div>
 
-                        <div class="col-md-11">
-                            <div class="form-group">
-                                <label for="avatar">{{ __('Avatar') }}</label>
-                                <input type="file" name="avatar" class="form-control @error('avatar', 'updateProfileInformation') is-invalid @enderror" id="avatar">
+                        <div class="mb-1">
+                            <label>Nama Lengkap:</label>
+                            <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" placeholder="{{ __('Nama Lengkap') }}" value="{{ old('last_name', auth()->user()->last_name) }}" required>
 
-                                @error('avatar', 'updateProfileInformation')
-                                <span class="text-danger">
-                                    {{ $message }}
-                                </span>
-                                @enderror
-                            </div>
+                            @error('last_name')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </div>
+
+                        <div class="mb-1">
+                            <label>Email:</label>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required>
+
+                            @error('email')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label>Password:</label>
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="{{ __('New password') }}">
+
+                            @error('password')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label>Konfirmasi Password:</label>
+                            <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="{{ __('New password confirmation') }}" autocomplete="new-password">
+
+                        </div>
+
+                        <div class="mb-1">
+                            <label>No Telp: <sup><strong>Tanpa angka 0</strong></sup></label>
+                            <input type="number" name="noHp" class="form-control @error('noHp') is-invalid @enderror" value="{{ old('mobile', auth()->user()->mobile) }}" placeholder="{{ __('857 9070 2476') }}">
+
+                            @error('noHp')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-1">
+                            <label>No Rekening:</label>
+                            <input type="number" name="noHp" class="form-control @error('noHp') is-invalid @enderror" value="{{ old('others', auth()->user()->others) }}" placeholder="{{ __('Nomor Rekening') }}">
+
+                            @error('noHp')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label>Atas Nama Rekening:</label>
+                            <input type="text" name="noHp" class="form-control @error('noHp') is-invalid @enderror" value="{{ old('extra_field', auth()->user()->extra_field) }}" placeholder="{{ __('Rekening atas nama?') }}">
+
+                            @error('noHp')
+                            <span class="error invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label>Avatar:</label>
+                            <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror">
+
+                            @error('avatar')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                     </div>
 
-
-
-                    <button type="submit" class="btn btn-primary">{{ __('Update Profil') }}</button>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                    </div>
                 </form>
             </div>
         </div>

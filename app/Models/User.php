@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Interfaces\Wallet;
+use Kirschbaum\PowerJoins\PowerJoins;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Wallet
 {
-    use HasApiTokens, HasFactory, Notifiable, HasWallet;
+    use HasApiTokens, HasFactory, Notifiable, HasWallet, HasRoles, PowerJoins;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +23,7 @@ class User extends Authenticatable implements Wallet
      */
     protected $fillable = [
         'email', 'password', 'first_name', 'last_name', 'mobile', 'country_code', 'cover', 'lat', 'lng', 'gender', 'verified', 'type',
-        'dob', 'date', 'fcm_token', 'others', 'stripe_key', 'extra_field', 'status', 'member_id'
+        'dob', 'date', 'fcm_token', 'others', 'stripe_key', 'extra_field', 'status', 'member_id', 'avatar'
     ];
 
     /**
@@ -47,4 +49,9 @@ class User extends Authenticatable implements Wallet
         'gender' => 'integer',
         'verified' => 'integer',
     ];
+
+    public function simpanan()
+    {
+        return $this->hasMany(\App\Models\ViewSimpanan::class, 'anggota', 'id');
+    }
 }

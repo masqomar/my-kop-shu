@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Jenis Akun')
+@section('title','Data Anggota')
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -19,9 +19,20 @@
       <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{session('success')}}
+                </div>
+                @endif
                 <div class="card ">
                     <div class="card-header bg-navy" >
-                        <h3 class="card-title"><b style="font-size: 30px" class="mr-1">D</b>ATA ANGGOTA </h3><br>
+                        <h3 class="card-title"><b style="font-size: 30px" class="mr-1">D</b>ATA ANGGOTA </h3>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('admin.data-anggota.create') }}" class="btn btn-primary sm-3">
+                                <i class="fas fa-plus"></i>
+                                {{ __('Tambah') }}
+                            </a>
+                        </div>
                         <hr class="mt-3 mb-0"style="border: 1px solid #fff">
                     </div>
                 <!-- /.card-header -->
@@ -53,6 +64,11 @@
 @section('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.css" />
+<style>
+    img {
+  border-radius: 50%;
+}
+</style>
 @endsection
 
 @section('scripts')
@@ -71,7 +87,7 @@
                 searchable: false,
                 render: function(data, type, full, meta) {
                     return `<div class="avatar">
-                            <img src="${data}" alt="avatar">
+                            <img src="${data}" alt="avatar" height="50" width="50">
                         </div>`;
                 }
             },

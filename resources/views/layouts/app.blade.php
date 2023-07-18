@@ -13,6 +13,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset ('assets/img/favicon.png') }}" sizes="32x32">
+    <link rel="manifest" href="__manifest.json">
     @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini">
