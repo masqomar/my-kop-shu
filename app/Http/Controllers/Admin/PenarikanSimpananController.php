@@ -23,7 +23,7 @@ class PenarikanSimpananController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiSimpanan = Simpanan::with('user')->where('dk', 'K');
+            $transaksiSimpanan = Simpanan::with('user')->where('dk', 'K')->orderBy('id', 'DESC');
 
             return DataTables::of($transaksiSimpanan)
                 ->addColumn('kode_transaksi', function ($row) {
@@ -79,6 +79,11 @@ class PenarikanSimpananController extends Controller
                     'jenis_id'    => $request->jenis_simpanan,
                     'akun' => 'Penarikan',
                     'dk' => 'K',
+                    'update_data' => now(),
+                    'user_name' => auth()->user()->first_name,
+                    'nama_penyetor' => '',
+                    'no_identitas' => '',
+                    'alamat' => ''
                 ]);
 
                 // activity()->log('Penarikan simpanan anggota ' . $request->keterangan . ' ke ' . $user->member_id . ' ' . $user->first_name);

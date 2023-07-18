@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JenisKas extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     
     protected $table = 'nama_kas_tbl';
     /**

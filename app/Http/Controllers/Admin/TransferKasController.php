@@ -22,7 +22,7 @@ class TransferKasController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Transfer');
+            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Transfer')->orderBy('id', 'DESC');
 
             return DataTables::of($transaksiKas)
                 ->addColumn('kode_transaksi', function ($row) {

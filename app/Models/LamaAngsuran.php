@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LamaAngsuran extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = 'jns_angsuran';
     /**
     * The attributes that are mass assignable.

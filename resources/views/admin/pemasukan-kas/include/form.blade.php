@@ -20,7 +20,7 @@
 
 <div class="form-group">
 <label>Keterangan</label>
-    <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" placeholder="{{ __('keterangan') }}" value="{{ old('keterangan') }}" required>
+    <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" placeholder="{{ __('keterangan') }}" value="{{ old('keterangan') }}">
    @error('keterangan')
     <span class="error invalid-feedback">
         {{ $message }}

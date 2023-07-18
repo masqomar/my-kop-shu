@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TransaksiKas extends Model
 {
   use HasFactory;
-
+  public $timestamps = false;
   protected $table = 'tbl_trans_kas';
 
   /**
@@ -24,7 +24,9 @@ class TransaksiKas extends Model
     'dari_kas_id',
     'untuk_kas_id',
     'jns_trans',
-    'dk'
+    'dk',
+    'update_data',
+    'user_name'
   ];
 
   /**

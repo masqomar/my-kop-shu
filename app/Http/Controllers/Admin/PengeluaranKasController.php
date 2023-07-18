@@ -22,7 +22,7 @@ class PengeluaranKasController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Pengeluaran');
+            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Pengeluaran')->orderBy('id', 'DESC');
 
             return DataTables::of($transaksiKas)
                 ->addColumn('kode_transaksi', function ($row) {

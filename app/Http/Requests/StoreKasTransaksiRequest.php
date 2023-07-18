@@ -28,7 +28,7 @@ class StoreKasTransaksiRequest extends FormRequest
             'jumlah' => 'required|numeric',
             'akun_id' => 'required|numeric',
             'untuk_kas' => 'required|numeric',
-            'keterangan' => 'required|string',
+            'keterangan' => 'nullable|string',
         ];
     }
 }

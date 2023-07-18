@@ -81,7 +81,7 @@
 
                             <div class="form-group">
                                 <label>{{ __('Keterangan') }}</label>
-                                <input type="text" name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" />
+                                <input type="text" name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" required/>
                                 @error('keterangan')
                                 <span class="text-danger">
                                     {{ $message }}

@@ -21,7 +21,7 @@ class PemasukanKasController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Pemasukan');
+            $transaksiKas = TransaksiKas::with('dari_kas', 'untuk_kas', 'jenis_akun')->where('akun', 'Pemasukan')->orderBy('id', 'DESC');
 
             return DataTables::of($transaksiKas)
                 ->addColumn('kode_transaksi', function ($row) {
@@ -66,7 +66,9 @@ class PemasukanKasController extends Controller
             'akun' => 'Pemasukan',
             'untuk_kas_id' => $request->untuk_kas,
             'jns_trans' => $request->akun_id,
-            'dk' => 'D'
+            'dk' => 'D',
+            'update_data' => now(),
+            'user_name' => Auth::user()->first_name
         ]));
 
         return redirect()

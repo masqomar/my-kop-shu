@@ -10,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class PinjamanDetail extends Model
 {
     use HasFactory, LogsActivity;
-
+    public $timestamps = false;
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

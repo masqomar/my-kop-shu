@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pinjaman extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'tbl_pinjaman_h';
     /**
      * The attributes that are mass assignable.

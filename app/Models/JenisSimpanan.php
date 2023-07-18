@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JenisSimpanan extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'jns_simpan';
     /**
     * The attributes that are mass assignable.

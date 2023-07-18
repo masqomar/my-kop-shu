@@ -24,7 +24,7 @@ class SetoranSimpananController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $transaksiSimpanan = Simpanan::with('user')->where('akun', 'Setoran');
+            $transaksiSimpanan = Simpanan::with('user')->where('akun', 'Setoran')->orderBy('id', 'DESC');
 
             return DataTables::of($transaksiSimpanan)
                 ->addColumn('kode_transaksi', function ($row) {
@@ -82,6 +82,11 @@ class SetoranSimpananController extends Controller
                     'jenis_id'    => $request->jenis_simpanan,
                     'akun' => 'Setoran',
                     'dk' => 'D',
+                    'update_data' => now(),
+                    'user_name' => auth()->user()->first_name,
+                    'nama_penyetor' => '',
+                    'no_identitas' => '',
+                    'alamat' => ''
                 ]);
 
                 // activity()->log('Topup saldo jimpay ' . $request->note . ' ke ' . $user->member_id . ' ' . $user->first_name);

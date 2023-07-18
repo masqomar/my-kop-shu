@@ -10,7 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Simpanan extends Model
 {
     use HasFactory, LogsActivity;
-
+    public $timestamps = false;
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -33,7 +33,12 @@ class Simpanan extends Model
         'keterangan', 
         'akun',
         'kas_id',
-        'dk'
+        'dk',
+        'update_data',
+        'user_name',
+        'nama_penyetor',
+        'no_identitas',
+        'alamat'
     ];
 
     /**
